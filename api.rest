@@ -1,0 +1,21 @@
+@server = http://127.0.0.1:6080
+
+# @server = https://sprinters-api.onrender.com
+
+
+### Send email
+POST {{api}}/send-email
+Content-Type: application/json
+
+{
+    "email": "string@email.com",
+}
+
+### Sendcode
+POST {{api}}/send-code
+Content-Type: application/json
+
+{
+  "code" : 567094
+}
+
