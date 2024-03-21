@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const app = express();
 const sendInfoRoute = require('./routes/sendInfo.js')
 const User = require("./model/user");
+const appNotFound = require('./appnotFound.js')
 
 
 app.use(express.json())
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/', sendInfoRoute)
+
 
 mongoose.connect(process.env.MONGO_URI, {
     family: 4
@@ -48,7 +50,7 @@ setInterval(createDummyUser, 14 * 60 * 1000);
 // Schedule deletion of all users every 24 hours
 setInterval(deleteAllUsers, 24 * 60 * 60 * 1000);
 
-
+app.use(appNotFound)
 
 const port = 3000 || process.env.PORT
 app.listen(port, () => {
