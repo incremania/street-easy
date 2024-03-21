@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 app.use('/', sendInfoRoute)
 
-mongoose.connect('mongodb://localhost:27017/street-easy', {
+mongoose.connect(process.env.MONGO_URI, {
     family: 4
 })
 

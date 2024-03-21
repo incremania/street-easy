@@ -1,6 +1,6 @@
-@server = http://127.0.0.1:6080
+@server = http://localhost:3000
 
-# @server = https://sprinters-api.onrender.com
+# @server = https://street-easy.onrender.com/
 
 
 ### Send email
