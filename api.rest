@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Sendcode
-POST {{api}}/send-code
+PATCH {{api}}/send-code
 Content-Type: application/json
 
 {
