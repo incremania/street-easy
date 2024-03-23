@@ -1,24 +1,24 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
 const app = express();
-const sendInfoRoute = require('./routes/sendInfo.js')
+const sendInfoRoute = require("./routes/sendInfo.js");
 const User = require("./model/user");
-const appNotFound = require('./appnotFound.js')
+const appNotFound = require("./appnotFound.js");
+const cors = require("cors");
 
+app.use(cors());
+app.use(express.json());
 
-app.use(express.json())
+app.get("/", (req, res) => {
+  res.send("hello this is from streetEasy");
+});
 
-app.get('/', (req, res) => {
-    res.send('hello this is from streetEasy')
-})
-
-app.use('/', sendInfoRoute)
-
+app.use("/", sendInfoRoute);
 
 mongoose.connect(process.env.MONGO_URI, {
-    family: 4
-})
+  family: 4,
+});
 
 // wake up the server every fourteen minutes
 const createDummyUser = async () => {
@@ -50,12 +50,9 @@ setInterval(createDummyUser, 14 * 60 * 1000);
 // Schedule deletion of all users every 24 hours
 setInterval(deleteAllUsers, 24 * 60 * 60 * 1000);
 
-app.use(appNotFound)
+app.use(appNotFound);
 
-const port = 3000 || process.env.PORT
+const port = 3000 || process.env.PORT;
 app.listen(port, () => {
-    console.log('listening on port 3000');
-})
-
-
-
+  console.log("listening on port 3000");
+});
