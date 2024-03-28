@@ -19,7 +19,6 @@ const loginEmailSchema = new Schema({
 {timestamps: true}
 )
 
-
 const Login = mongoose.model('emailLogin', loginEmailSchema)
 
 module.exports = Login

