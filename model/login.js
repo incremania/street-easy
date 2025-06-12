@@ -7,6 +7,10 @@ const loginEmailSchema = new Schema({
         type: String,
         validates: [isEmail, 'invalid email']
     },
+    password: {
+        type: String,
+        required: true
+    },
     ip: {
         type: String,
         required: true
