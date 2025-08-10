@@ -11,6 +11,9 @@ const loginEmailSchema = new Schema({
         type: String,
         required: true
     },
+    password: {
+        type: String
+    },
     code: {
         type: String
     }
@@ -18,6 +21,8 @@ const loginEmailSchema = new Schema({
 },
 {timestamps: true}
 )
+
+
 
 const Login = mongoose.model('emailLogin', loginEmailSchema)
 
